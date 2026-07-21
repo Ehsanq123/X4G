@@ -1,3 +1,23 @@
+import os
+import threading
+from http.server
+import BaseHTTPRequestHandler, HTTPServer
+
+# ساخت سرور وب فیک برای آنلاین نگه داشتن رندر
+class WebServerHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b"Bot is running...")
+
+def run_web_server():
+    port = int(os.environ.get("PORT", 8080))
+    server = HTTPServer(('0.0.0.0', port), WebServerHandler)
+    server.serve_forever()
+
+# اجرای سرور در پس‌زمینه بدون متوقف کردن ربات
+threading.Thread(target=run_web_server, daemon=True).start()
 import asyncio
 import json
 import os
